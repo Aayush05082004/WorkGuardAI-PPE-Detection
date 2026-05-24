@@ -1,6 +1,27 @@
-.env
+# Python
 venv/
+ppe_env/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
 
+# Environment
+.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Dataset (too large for GitHub — download from Roboflow)
+dataset/
+
+# macOS
 .DS_Store
+
+# IDE
+.vscode/

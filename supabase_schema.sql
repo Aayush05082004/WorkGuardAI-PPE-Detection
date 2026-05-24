@@ -1,24 +1,17 @@
+-- ══════════════════════════════════════════════════════
+-- WorkGuardAI — Add PPE columns to site_inspections
 -- Run this in Supabase → SQL Editor
+-- ══════════════════════════════════════════════════════
 
--- Detections table
-CREATE TABLE IF NOT EXISTS detections (
-    id              UUID PRIMARY KEY,
-    filename        TEXT,
-    original_url    TEXT,
-    annotated_url   TEXT,
-    detections      JSONB,
-    violations      JSONB,
-    total_detected  INTEGER DEFAULT 0,
-    has_violation   BOOLEAN DEFAULT FALSE,
-    created_at      TIMESTAMPTZ DEFAULT NOW()
-);
+-- site_inspections already exists, just add the missing PPE columns
+ALTER TABLE site_inspections
+  ADD COLUMN IF NOT EXISTS original_url    TEXT,
+  ADD COLUMN IF NOT EXISTS annotated_url   TEXT,
+  ADD COLUMN IF NOT EXISTS detections      JSONB,
+  ADD COLUMN IF NOT EXISTS violations      JSONB,
+  ADD COLUMN IF NOT EXISTS total_detected  INTEGER DEFAULT 0;
 
--- Index for faster queries
-CREATE INDEX IF NOT EXISTS idx_detections_created_at ON detections(created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_detections_has_violation ON detections(has_violation);
-
--- Enable Row Level Security (optional but recommended)
-ALTER TABLE detections ENABLE ROW LEVEL SECURITY;
-
--- Allow all operations for now (tighten this when you add auth)
-CREATE POLICY "Allow all" ON detections FOR ALL USING (true);
+-- Indexes
+CREATE INDEX IF NOT EXISTS idx_site_inspections_created_at    ON site_inspections(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_site_inspections_has_violation  ON site_inspections(has_violation);
+CREATE INDEX IF NOT EXISTS idx_site_inspections_supervisor_id  ON site_inspections(supervisor_id);
