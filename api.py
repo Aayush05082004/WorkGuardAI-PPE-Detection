@@ -11,6 +11,14 @@ def safe_torch_load(*args, **kwargs):
     return _orig_torch_load(*args, **kwargs)
 torch.load = safe_torch_load
 
+import sys
+import ultralytics.utils.loss
+
+# Fake the missing attribute so PyTorch can safely unpack the model weights
+if not hasattr(ultralytics.utils.loss, 'DFloss'):
+    class FakeDFloss: pass
+    ultralytics.utils.loss.DFloss = FakeDFloss
+
 from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
