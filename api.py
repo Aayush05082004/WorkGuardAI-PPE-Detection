@@ -2,7 +2,13 @@
 WorkGuardAI - PPE Detection API
 FastAPI backend with YOLO model + Supabase integration
 """
-
+import torch
+# Allow PyTorch to safely unpickle the Ultralytics model structure
+try:
+    import ultralytics
+    torch.serialization.add_safe_globals([ultralytics.nn.tasks.DetectionModel])
+except Exception:
+    pass
 from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
