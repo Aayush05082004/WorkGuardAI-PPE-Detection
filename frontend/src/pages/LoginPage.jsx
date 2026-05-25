@@ -15,7 +15,7 @@ const ROLE_CONFIG = {
     heading: "Manage sites, teams, and track project progress.",
     subtitle: "Full control over your construction sites, supervisors, and workers.",
     infoBoxes: [
-      { label: "ROLE", value: "Site Manager" },
+      { label: "ROLE", value: "site_manager" },
       { label: "DB", value: "profiles + sites" },
       { label: "PHASE", value: "Admin" },
     ],
@@ -32,7 +32,7 @@ const ROLE_CONFIG = {
     heading: "Mark attendance, assign tasks, and track site progress.",
     subtitle: "Oversee workers on your assigned site and report to the site manager.",
     infoBoxes: [
-      { label: "ROLE", value: "Supervisor" },
+      { label: "ROLE", value: "supervisor" },
       { label: "REPORTS TO", value: "Site Manager" },
       { label: "MANAGES", value: "Workers" },
     ],
@@ -49,7 +49,7 @@ const ROLE_CONFIG = {
     heading: "View your tasks and mark work as complete.",
     subtitle: "Stay on top of your daily tasks and attendance records.",
     infoBoxes: [
-      { label: "ROLE", value: "Worker" },
+      { label: "ROLE", value: "worker" },
       { label: "REPORTS TO", value: "Supervisor" },
       { label: "TASKS", value: "Assigned by Supervisor" },
     ],
