@@ -2,23 +2,6 @@
 WorkGuardAI - PPE Detection API
 FastAPI backend with YOLO model + Supabase integration
 """
-import torch
-
-# Monkey-patch torch.load to bypass the strict PyTorch 2.6 weights_only security rule for this trusted local file
-_orig_torch_load = torch.load
-def safe_torch_load(*args, **kwargs):
-    kwargs['weights_only'] = False
-    return _orig_torch_load(*args, **kwargs)
-torch.load = safe_torch_load
-
-import sys
-import ultralytics.utils.loss
-
-# Fake the missing attribute so PyTorch can safely unpack the model weights
-if not hasattr(ultralytics.utils.loss, 'DFloss'):
-    class FakeDFloss: pass
-    ultralytics.utils.loss.DFloss = FakeDFloss
-
 from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
